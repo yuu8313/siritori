@@ -1,0 +1,57 @@
+.input-area {
+    display: flex;
+    gap: 1rem;
+}
+
+input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text);
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary);
+}
+
+.button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-2px);
+}
+
+.send-button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary);
+    color: var(--text);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.send-button:hover {
+    transform: translateY(-2px);
+}
+
+.reset-button {
+    margin-top: 1rem;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.reset-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link rel="icon" href="https://github.com/yuu8313/hukugoukensakuenzin/blob/main/ICON.png?raw=true" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>しりとりゲーム</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/game.css">
+    <link rel="stylesheet" href="styles/controls.css">
+    <link rel="stylesheet" href="styles/notifications.css">
+</head>
+<body>
+    <div class="container">
+        <div class="game-card glass">
+            <div class="header">
+                <h1>しりとりゲーム</h1>
+                <div class="score">スコア: <span id="score">0</span></div>
+            </div>
+            
+            <div class="game-area">
+                <div class="message-history" id="messageHistory"></div>
+                
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="ひらがなで入力..." maxlength="20">
+                    <button id="sendButton" class="send-button">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <button id="resetButton" class="button reset-button">
+                    <i class="fas fa-redo"></i> やり直す
+                </button>
+            </div>
+        </div>
+        
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="ai/blocdata.js"></script>
+    <script src="ai/data.js"></script>
+    <script src="ai/ai.js"></script>
+    <script src="animation.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
