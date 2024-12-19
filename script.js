@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastWord = '';
     let usedWords = new Set();
 
+    const smallKanaMap = {
+        'ぁ': 'あ', 'ぃ': 'い', 'ぅ': 'う', 'ぇ': 'え', 'ぉ': 'お',
+        'ゃ': 'や', 'ゅ': 'ゆ', 'ょ': 'よ', 'っ': 'つ', 'ゎ': 'わ'
+    };
+
+    function normalizeKana(word) {
+        return word.replace(/(.)$/, (match, lastChar) => smallKanaMap[lastChar] || lastChar);
+    }
+
     function isValidInput(input) {
         const hiraganaRegex = /^[ぁ-んー]+$/;
         return hiraganaRegex.test(input) && input.length >= 2;
@@ -64,32 +73,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleUserInput() {
         const word = userInput.value.trim();
-        
-        if (!isValidInput(word)) {
+        const normalizedWord = normalizeKana(word);
+
+        if (!isValidInput(normalizedWord)) {
             showNotification('ひらがな2文字以上で入力してください');
             return;
         }
 
-        if (containsBlockedWord(word)) {
+        if (containsBlockedWord(normalizedWord)) {
             showNotification('不適切な言葉が含まれています');
             userInput.value = '';
             return;
         }
         
-        if (lastWord && word[0] !== lastWord[lastWord.length - 1]) {
+        const normalizedLastWord = normalizeKana(lastWord);
+        if (normalizedLastWord && normalizedWord[0] !== normalizedLastWord[normalizedLastWord.length - 1]) {
             showNotification('前の言葉の最後の文字から始めてください');
             return;
         }
         
-        if (usedWords.has(word)) {
+        if (usedWords.has(normalizedWord)) {
             showNotification('すでに使用された言葉です');
             return;
         }
         
-        addMessage(word, true);
-        usedWords.add(word);
-        lastWord = word;
-        score += word.length;
+        addMessage(word, true); 
+        usedWords.add(normalizedWord);
+        lastWord = normalizedWord;
+        score += normalizedWord.length;
         scoreElement.textContent = score;
         
         anime({
@@ -101,14 +112,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         userInput.value = '';
 
-        if (word.endsWith('ん')) {
+        if (normalizedWord.endsWith('ん')) {
             showNotification('ゲームオーバー！AIの勝ちです！');
             setTimeout(resetGame, 2000);
             return;
         }
         
         setTimeout(() => {
-            const aiResponse = getAIResponse(word);
+            const aiResponse = getAIResponse(normalizedWord);
             if (aiResponse) {
                 addMessage(aiResponse, false);
                 lastWord = aiResponse;
